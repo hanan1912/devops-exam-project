@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DevOps Exam App</title>
+</head>
+
+<body>
+    <h1>My Exam To-Do List</h1>
+    <input type="text" id="itemInput" placeholder="Add new item...">
+    <button onclick="addItem()">Add</button>
+    <ul id="itemList"></ul>
+
+    <script>
+        // We point to localhost:5000 because that's where the backend is exposed
+        const API_URL = 'http://localhost:5000/items';
+
+        async function loadItems() {
+            const response = await fetch(API_URL);
+            const items = await response.json();
+            const list = document.getElementById('itemList');
+            list.innerHTML = items.map(i => `<li>${i.name}</li>`).join('');
+        }
+
+        async function addItem() {
+            const input = document.getElementById('itemInput');
+            await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: input.value })
+            });
+            input.value = '';
+            loadItems();
+        }
+        loadItems();
+    </script>
+</body>
+
+</html>
