@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 3. Set up Docker Buildx (Required for the build-push-action)
+      # 3. Set up Docker Buildx (Required for the bui
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
